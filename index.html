@@ -157,6 +157,11 @@ h2{
   text-align:center;text-wrap:balance;
 }
 h3{font-family:var(--serif);font-weight:700;font-size:1.09rem;margin:0 0 8px;line-height:1.35}
+/* a subheading that follows other content needs air above it; the first one in a
+   block does not, or it would double the container's own padding */
+section h3.sub{margin-top:38px}
+section h3.sub:first-child{margin-top:0}
+.skillbox h3.sub{margin-top:0}
 .abstract{max-width:46em;margin:0 auto}
 .center{text-align:center}
 .note{font-size:.86rem;color:var(--muted);line-height:1.6}
@@ -229,7 +234,7 @@ td.sep,th.sep{border-left:1px solid var(--rule-2)}
 
 /* the discovered skill gets its own block, deliberately not a tool card */
 .skillbox{border:1px solid var(--accent);border-radius:3px;
-  background:var(--accent-bg);padding:18px 20px;margin-top:26px}
+  background:var(--accent-bg);padding:20px 22px;margin:30px 0 44px}
 .skillbox-h{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px;margin-bottom:9px}
 .skillbox h3{margin:0;font-size:1.09rem}
 .skillbox p{font-size:.9rem;color:var(--text-2);line-height:1.6;margin:0}
@@ -470,7 +475,7 @@ footer{border-top:1px solid var(--rule);padding:26px 0 52px;text-align:center;
       </p>
     </div>
 
-    <h3 class="center" style="margin-bottom:16px">Heuristic Skill Distillation</h3>
+    <h3 class="center sub" style="margin-bottom:16px">Heuristic Skill Distillation</h3>
     <div class="abstract">
       <ol class="steps">
         <li><b>Answer blind, then see the gold.</b>
@@ -544,7 +549,7 @@ footer{border-top:1px solid var(--rule);padding:26px 0 52px;text-align:center;
     <div class="bhead"><span></span><span></span><span>Avg</span><span>&Delta;</span></div>
     <div class="bars" id="ablComp" style="margin-bottom:34px"></div>
 
-    <h3 style="margin-bottom:4px">Wrapping other backbones in the harness</h3>
+    <h3 class="sub" style="margin-bottom:4px">Wrapping other backbones in the harness</h3>
     <p class="note" style="margin-bottom:14px">
       The same open-source model answering one-shot, then as the visual sub-agent inside our
       harness. The tick on each bar marks its one-shot score.
@@ -552,7 +557,7 @@ footer{border-top:1px solid var(--rule);padding:26px 0 52px;text-align:center;
     <div class="bhead"><span></span><span></span><span>Avg</span><span>Gain</span></div>
     <div class="bars" id="ablLift" style="margin-bottom:34px"></div>
 
-    <h3 style="margin-bottom:4px">Judge reliability</h3>
+    <h3 class="sub" style="margin-bottom:4px">Judge reliability</h3>
     <p class="note" style="margin-bottom:14px">
       Quadratic weighted Cohen's &kappa; against expert ratings: a neurosurgeon on 30 neurosurgery
       items, surgical experts on 70 SVU items.
@@ -603,7 +608,7 @@ footer{border-top:1px solid var(--rule);padding:26px 0 52px;text-align:center;
       </figcaption>
     </figure>
 
-    <h3 class="center" style="margin-bottom:14px">Comparison with surgical video QA datasets</h3>
+    <h3 class="center sub" style="margin-bottom:14px">Comparison with surgical video QA datasets</h3>
     <div class="scroller">
       <table>
         <thead><tr>
@@ -639,15 +644,15 @@ footer{border-top:1px solid var(--rule);padding:26px 0 52px;text-align:center;
     </p>
     <pre style="margin-bottom:26px"><code>huggingface-cli download gkw0010/SVU-31K <span class="k">--repo-type</span> dataset <span class="k">--local-dir</span> SVU-31K</code></pre>
 
-    <h3 style="margin-bottom:6px">Neurosurgery split</h3>
+    <h3 class="sub" style="margin-bottom:6px">Neurosurgery split</h3>
     <p style="font-size:.93rem;color:var(--text-2);margin-bottom:26px">
-      259 questions over 15 recordings from Beijing Tiantan Hospital, with golds grounded in a
+      259 questions over 14 recordings from Beijing Tiantan Hospital, with golds grounded in a
       neurosurgeon's interval annotations. Because this is identifiable clinical footage, the
       videos are not yet public; they will be released through an application process. The
       questions and reference answers ship with the benchmark file.
     </p>
 
-    <h3 style="margin-bottom:6px">Reproducing the tables</h3>
+    <h3 class="sub" style="margin-bottom:6px">Reproducing the tables</h3>
     <pre><code><span class="c"># run the agent (lite backbone on SVU, flash on neurosurgery)</span>
 <span class="k">export</span> SURG_VIDEO_MODEL=gemini-3.1-flash-lite
 <span class="k">export</span> SURG_SKILL_TOOLSET=1
@@ -685,7 +690,7 @@ python surg_env/score_final.py --split svu</code></pre>
 
 <script>
 const BOARD = {"mvd": [{"n": 259, "avg": 2.895, "vtr": {"CI": 2.4, "DO": 2.28, "CU": 3.19, "TU": 2.8}, "vpr": {"CI": 2.64, "DO": 2.69, "CU": 3.38, "TU": 3.53}, "vtr_avg": 2.67, "vpr_avg": 3.06, "name": "MedClaw", "cat": "ours", "params": "frozen", "stem": "medclaw_flash"}, {"n": 259, "avg": 2.644, "vtr": {"CI": 2.15, "DO": 2.01, "CU": 2.93, "TU": 2.49}, "vpr": {"CI": 2.29, "DO": 2.4, "CU": 3.19, "TU": 3.43}, "vtr_avg": 2.39, "vpr_avg": 2.83, "name": "Opus-4.8", "cat": "oneshot", "params": "api", "stem": "oneshot_opus_4.8"}, {"n": 259, "avg": 2.544, "vtr": {"CI": 2.1, "DO": 1.8, "CU": 2.83, "TU": 2.59}, "vpr": {"CI": 2.27, "DO": 2.12, "CU": 3.07, "TU": 3.35}, "vtr_avg": 2.33, "vpr_avg": 2.7, "name": "Gemini-3.1-flash-lite", "cat": "oneshot", "params": "api", "stem": "oneshot_gemini_3.1_flash_lite"}, {"n": 259, "avg": 2.463, "vtr": {"CI": 1.96, "DO": 1.77, "CU": 2.71, "TU": 2.28}, "vpr": {"CI": 2.23, "DO": 2.13, "CU": 2.96, "TU": 3.36}, "vtr_avg": 2.18, "vpr_avg": 2.67, "name": "Gemini-3.5-flash", "cat": "oneshot", "params": "api", "stem": "oneshot_gemini_3.5_flash"}, {"n": 259, "avg": 2.137, "vtr": {"CI": 1.75, "DO": 1.29, "CU": 2.33, "TU": 2.03}, "vpr": {"CI": 2.04, "DO": 1.65, "CU": 2.67, "TU": 3.02}, "vtr_avg": 1.85, "vpr_avg": 2.35, "name": "VideoChat-R1-7B", "cat": "reason", "params": "7B", "stem": "videochat_r1_7b"}, {"n": 259, "avg": 2.056, "vtr": {"CI": 1.61, "DO": 1.17, "CU": 2.24, "TU": 2.28}, "vpr": {"CI": 1.77, "DO": 1.55, "CU": 2.55, "TU": 3.03}, "vtr_avg": 1.82, "vpr_avg": 2.23, "name": "Video-R1-7B", "cat": "reason", "params": "7B", "stem": "video_r1_7b"}, {"n": 259, "avg": 2.041, "vtr": {"CI": 1.62, "DO": 1.31, "CU": 2.28, "TU": 2.01}, "vpr": {"CI": 1.8, "DO": 1.61, "CU": 2.53, "TU": 2.9}, "vtr_avg": 1.81, "vpr_avg": 2.21, "name": "Qwen2.5-VL-7B", "cat": "vlm", "params": "7B", "stem": "qwen2.5_vl_7b"}, {"n": 259, "avg": 2.013, "vtr": {"CI": 1.64, "DO": 1.1, "CU": 2.06, "TU": 1.94}, "vpr": {"CI": 2.03, "DO": 1.51, "CU": 2.45, "TU": 3.01}, "vtr_avg": 1.69, "vpr_avg": 2.25, "name": "Video-RFT", "cat": "reason", "params": "7B", "stem": "video_rft"}, {"n": 259, "avg": 1.935, "vtr": {"CI": 1.53, "DO": 1.28, "CU": 2.21, "TU": 1.83}, "vpr": {"CI": 1.66, "DO": 1.55, "CU": 2.53, "TU": 2.63}, "vtr_avg": 1.72, "vpr_avg": 2.1, "name": "SurgVidLM", "cat": "surgical", "params": "7B", "stem": "surgvidlm"}, {"n": 259, "avg": 1.866, "vtr": {"CI": 1.75, "DO": 1.26, "CU": 2.18, "TU": 1.93}, "vpr": {"CI": 1.8, "DO": 1.4, "CU": 2.23, "TU": 2.29}, "vtr_avg": 1.78, "vpr_avg": 1.93, "name": "LongVT-7B-RFT", "cat": "agent", "params": "7B", "stem": "longvt_7b_rft"}, {"n": 259, "avg": 1.804, "vtr": {"CI": 1.49, "DO": 1.09, "CU": 1.96, "TU": 1.74}, "vpr": {"CI": 1.73, "DO": 1.39, "CU": 2.28, "TU": 2.5}, "vtr_avg": 1.57, "vpr_avg": 1.97, "name": "VideoLLaMA3-7B", "cat": "vlm", "params": "7B", "stem": "videollama3_7b"}, {"n": 259, "avg": 1.767, "vtr": {"CI": 1.35, "DO": 1.05, "CU": 1.78, "TU": 1.65}, "vpr": {"CI": 1.65, "DO": 1.43, "CU": 2.29, "TU": 2.6}, "vtr_avg": 1.46, "vpr_avg": 1.99, "name": "InternVL3-8B", "cat": "vlm", "params": "8B", "stem": "internvl3_8b"}, {"n": 259, "avg": 1.542, "vtr": {"CI": 1.46, "DO": 1.1, "CU": 1.79, "TU": 1.53}, "vpr": {"CI": 1.57, "DO": 1.16, "CU": 1.79, "TU": 1.85}, "vtr_avg": 1.47, "vpr_avg": 1.59, "name": "ReWatch-R1-7B", "cat": "agent", "params": "7B", "stem": "rewatch_r1_7b"}], "svu": [{"n": 864, "avg": 3.743, "vtr": {"CI": 3.03, "DO": 3.09, "CU": 3.69, "TU": 3.18}, "vpr": {"CI": 3.67, "DO": 3.65, "CU": 4.17, "TU": 3.95}, "vtr_avg": 3.25, "vpr_avg": 3.86, "name": "MedClaw", "cat": "ours", "params": "frozen", "stem": "medclaw_lite"}, {"n": 864, "avg": 3.396, "vtr": {"CI": 2.6, "DO": 2.53, "CU": 3.28, "TU": 2.77}, "vpr": {"CI": 3.4, "DO": 3.14, "CU": 3.88, "TU": 3.73}, "vtr_avg": 2.79, "vpr_avg": 3.54, "name": "Gemini-3.1-flash-lite", "cat": "oneshot", "params": "api", "stem": "oneshot_gemini_3.1_flash_lite"}, {"n": 864, "avg": 2.738, "vtr": {"CI": 2.36, "DO": 2.34, "CU": 3.13, "TU": 2.52}, "vpr": {"CI": 2.57, "DO": 2.42, "CU": 3.15, "TU": 2.96}, "vtr_avg": 2.59, "vpr_avg": 2.77, "name": "Opus-4.8", "cat": "oneshot", "params": "api", "stem": "oneshot_opus_4.8"}, {"n": 864, "avg": 2.35, "vtr": {"CI": 1.82, "DO": 1.67, "CU": 2.61, "TU": 1.97}, "vpr": {"CI": 2.24, "DO": 1.9, "CU": 2.87, "TU": 2.69}, "vtr_avg": 2.02, "vpr_avg": 2.43, "name": "SurgVidLM", "cat": "surgical", "params": "7B", "stem": "surgvidlm"}, {"n": 864, "avg": 2.318, "vtr": {"CI": 1.87, "DO": 1.61, "CU": 2.46, "TU": 2.12}, "vpr": {"CI": 2.3, "DO": 1.74, "CU": 2.77, "TU": 2.74}, "vtr_avg": 2.01, "vpr_avg": 2.39, "name": "VideoChat-R1-7B", "cat": "reason", "params": "7B", "stem": "videochat_r1_7b"}, {"n": 864, "avg": 2.316, "vtr": {"CI": 1.64, "DO": 1.54, "CU": 2.31, "TU": 2.01}, "vpr": {"CI": 2.25, "DO": 1.85, "CU": 2.84, "TU": 2.73}, "vtr_avg": 1.88, "vpr_avg": 2.42, "name": "Qwen2.5-VL-7B", "cat": "vlm", "params": "7B", "stem": "qwen2.5_vl_7b"}, {"n": 864, "avg": 2.241, "vtr": {"CI": 1.85, "DO": 1.42, "CU": 2.37, "TU": 2.06}, "vpr": {"CI": 2.22, "DO": 1.64, "CU": 2.64, "TU": 2.76}, "vtr_avg": 1.92, "vpr_avg": 2.31, "name": "Video-RFT", "cat": "reason", "params": "7B", "stem": "video_rft"}, {"n": 864, "avg": 2.236, "vtr": {"CI": 1.67, "DO": 1.31, "CU": 2.33, "TU": 2.02}, "vpr": {"CI": 2.1, "DO": 1.5, "CU": 2.68, "TU": 3.04}, "vtr_avg": 1.83, "vpr_avg": 2.33, "name": "Video-R1-7B", "cat": "reason", "params": "7B", "stem": "video_r1_7b"}, {"n": 864, "avg": 1.993, "vtr": {"CI": 1.53, "DO": 1.24, "CU": 2.04, "TU": 1.65}, "vpr": {"CI": 1.98, "DO": 1.43, "CU": 2.47, "TU": 2.45}, "vtr_avg": 1.62, "vpr_avg": 2.08, "name": "LongVT-7B-RFT", "cat": "agent", "params": "7B", "stem": "longvt_7b_rft"}, {"n": 864, "avg": 1.918, "vtr": {"CI": 1.7, "DO": 1.23, "CU": 2.18, "TU": 1.8}, "vpr": {"CI": 1.91, "DO": 1.3, "CU": 2.35, "TU": 2.29}, "vtr_avg": 1.73, "vpr_avg": 1.96, "name": "ReWatch-R1-7B", "cat": "agent", "params": "7B", "stem": "rewatch_r1_7b"}, {"n": 864, "avg": 1.897, "vtr": {"CI": 1.6, "DO": 1.29, "CU": 2.17, "TU": 1.79}, "vpr": {"CI": 1.87, "DO": 1.34, "CU": 2.26, "TU": 2.28}, "vtr_avg": 1.71, "vpr_avg": 1.94, "name": "VideoLLaMA3-7B", "cat": "vlm", "params": "7B", "stem": "videollama3_7b"}, {"n": 864, "avg": 1.759, "vtr": {"CI": 1.51, "DO": 1.18, "CU": 1.98, "TU": 1.75}, "vpr": {"CI": 1.81, "DO": 1.16, "CU": 2.11, "TU": 2.09}, "vtr_avg": 1.61, "vpr_avg": 1.79, "name": "InternVL3-8B", "cat": "vlm", "params": "8B", "stem": "internvl3_8b"}]};
-const COMPO = {"total": 1123, "neuro": 259, "svu": 864, "neuro_videos": 15, "svu_videos": 141, "neuro_vtr": 109, "neuro_vpr": 150, "svu_vtr": 163, "svu_vpr": 701, "types": {"temporal-after": 29, "counting": 29, "finding": 29, "long-range-temporal": 28, "instrument": 28, "case-specific": 28, "temporal-before": 27, "segment-content": 25, "action": 18, "comparison": 18}, "vtr_types": ["long-range-temporal", "segment-content", "temporal-after", "temporal-before"]};
+const COMPO = {"total": 1123, "neuro": 259, "svu": 864, "neuro_videos": 14, "neuro_video_files": 15, "neuro_patients": 12, "svu_videos": 141, "neuro_vtr": 109, "neuro_vpr": 150, "svu_vtr": 163, "svu_vpr": 701, "types": {"temporal-after": 29, "counting": 29, "finding": 29, "long-range-temporal": 28, "instrument": 28, "case-specific": 28, "temporal-before": 27, "segment-content": 25, "action": 18, "comparison": 18}, "vtr_types": ["long-range-temporal", "segment-content", "temporal-after", "temporal-before"]};
 
 /* ---------- leaderboard ---------- */
 (function(){
