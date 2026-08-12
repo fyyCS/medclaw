@@ -57,3 +57,7 @@ answers ship with the benchmark file in the research repository.
 ```
 
 Fan and Du contributed equally.
+
+---
+
+Project page for MedClaw. Live at <https://fyycs.github.io/medclaw/>.
