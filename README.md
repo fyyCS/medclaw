@@ -25,9 +25,11 @@ Everything is inlined: subset WOFF2 fonts and the three paper figures as data UR
 The page works offline and makes no third-party requests.
 
 The leaderboard and benchmark-composition numbers are **not hand-typed**. They were
-computed from the scored answer files in the main research repository and injected at
-build time, so they match the paper exactly. The ablation and judge-agreement tables
-are the exception and are transcribed from the paper.
+computed from the scored answer files in the research repository
+([fyyCS/medclaw-agent](https://github.com/fyyCS/medclaw-agent), private while the
+paper is under review) and injected at build time, so they match the paper exactly.
+The ablation and judge-agreement tables are the exception and are transcribed from
+the paper.
 
 ## Data
 
