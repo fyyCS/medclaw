@@ -262,9 +262,11 @@ ol.steps p{font-size:.93rem;color:var(--text-2);margin:3px 0 0}
   gap:14px;align-items:center}
 .brow .n{font-size:.88rem;color:var(--text-2);line-height:1.35}
 .brow .n.f{color:var(--text);font-weight:700}
-.bt{position:relative;height:16px;background:var(--rule-2);border-radius:2px;overflow:hidden}
+/* fully rounded track and fill — the radius is half the height, so the ends are
+   true semicircles at any bar height */
+.bt{position:relative;height:16px;background:var(--rule-2);border-radius:8px;overflow:hidden}
 .bt i{position:absolute;inset:0 auto 0 0;display:block;background:var(--teal);
-  border-radius:2px;width:0;transition:width .8s cubic-bezier(.4,0,.2,1)}
+  border-radius:8px;width:0;transition:width .8s cubic-bezier(.4,0,.2,1)}
 .bt i.hi{background:var(--blue)}
 .bt i.warm{background:var(--accent)}
 /* the scored value, sitting at the end of its own bar */
@@ -273,7 +275,9 @@ ol.steps p{font-size:.93rem;color:var(--text-2);margin:3px 0 0}
 .bd{font-family:var(--mono);font-size:.79rem;text-align:right;
   font-variant-numeric:tabular-nums;color:var(--accent-ink)}
 .bd.z{color:var(--muted)}
-.baseline{position:absolute;top:0;bottom:0;width:1px;background:var(--muted);opacity:.55}
+/* inset from the rounded ends so the tick never sits on the curve */
+.baseline{position:absolute;top:3px;bottom:3px;width:2px;border-radius:1px;
+  background:var(--bg);opacity:.75}
 .bhead{display:grid;grid-template-columns:minmax(150px,1.1fr) 1fr 46px 58px;gap:14px;
   margin-bottom:7px;font-family:var(--sans);font-size:.7rem;letter-spacing:.05em;
   text-transform:uppercase;color:var(--muted)}
