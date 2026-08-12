@@ -146,7 +146,11 @@ h1{
 .btn.ghost:hover{color:var(--text);border-color:var(--muted);opacity:1}
 .btn svg{width:15px;height:15px;flex:none;stroke-width:1.7}
 .btn.disabled{opacity:.42;pointer-events:none}
-.btn .lock{font-size:.78em;opacity:.65;margin-left:-2px}
+.btn .soon{
+  font-size:.7em;font-weight:600;letter-spacing:.04em;text-transform:uppercase;
+  color:var(--accent-ink);border:1px solid var(--accent);border-radius:2px;
+  padding:0 4px;margin-left:-2px;
+}
 
 hr.divider{border:0;border-top:1px solid var(--rule);margin:48px 0 0}
 
@@ -349,9 +353,9 @@ footer{border-top:1px solid var(--rule);padding:26px 0 52px;text-align:center;
         Paper
       </a>
       <a class="btn ghost" href="https://github.com/fyyCS/medclaw-agent"
-         title="Private while the paper is under review">
+         title="Coming soon — final cleanup in progress">
         <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" aria-hidden="true"><path d="M6 12.5c-3 1-3-1.5-4.5-2M10.5 15v-2.6c0-.8.1-1.1-.4-1.5 2-.2 3.9-1 3.9-4.3a3.3 3.3 0 0 0-.9-2.3c.1-.2.4-1.2-.1-2.4 0 0-.8-.3-2.5 1a8.6 8.6 0 0 0-4.5 0C4.3 1.9 3.5 2.2 3.5 2.2c-.5 1.2-.2 2.2-.1 2.4a3.3 3.3 0 0 0-.9 2.3c0 3.3 1.9 4.1 3.9 4.3-.3.3-.4.7-.4 1.2V15"/></svg>
-        Code <span class="lock" aria-label="private">&#128274;</span>
+        Code <span class="soon">soon</span>
       </a>
       <a class="btn ghost" href="https://huggingface.co/datasets/gkw0010/SVU-31K/tree/main">
         <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" aria-hidden="true"><ellipse cx="8" cy="4" rx="5.5" ry="2.3"/><path d="M2.5 4v8c0 1.3 2.5 2.3 5.5 2.3s5.5-1 5.5-2.3V4"/><path d="M2.5 8c0 1.3 2.5 2.3 5.5 2.3s5.5-1 5.5-2.3"/></svg>
@@ -663,8 +667,7 @@ footer{border-top:1px solid var(--rule);padding:26px 0 52px;text-align:center;
       The harness, the benchmark file, and the per-question scored answers behind every
       table live at
       <a href="https://github.com/fyyCS/medclaw-agent">github.com/fyyCS/medclaw-agent</a>.
-      The repository is private while the paper is under review, and will be opened on
-      publication.
+      We are finishing the final cleanup and will open the repository shortly.
     </p>
 
     <h3 class="sub" style="margin-bottom:6px">Reproducing the tables</h3>
