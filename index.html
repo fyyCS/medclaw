@@ -216,6 +216,7 @@ td.sep,th.sep{border-left:1px solid var(--rule-2)}
   text-transform:uppercase;letter-spacing:.04em;padding-top:14px;font-weight:600}
 .best-mark{font-weight:700;color:var(--text)}
 td.rank{text-align:center;font-family:var(--mono);font-size:.8rem;color:var(--muted);width:2.6em}
+sup.src{color:var(--accent-ink);font-size:.7em;margin-left:2px;cursor:help}
 tbody tr:first-child td.rank{color:var(--accent-ink);font-weight:700}
 .tblnote{font-size:.82rem;color:var(--muted);line-height:1.6;max-width:56em}
 
@@ -943,6 +944,35 @@ const APIBOARD = {
       }
     },
     {
+      "name": "Gemini 3.5 Flash",
+      "vendor": "Google",
+      "mode": "full video",
+      "ours": false,
+      "n": 864,
+      "from_paper": true,
+      "CI": 3.46,
+      "DO": 3.27,
+      "CU": 3.93,
+      "TU": 3.76,
+      "vtr": {
+        "CI": 2.79,
+        "DO": 2.77,
+        "CU": 3.44,
+        "TU": 2.98,
+        "n": 163,
+        "avg": 2.995
+      },
+      "vpr": {
+        "CI": 3.62,
+        "DO": 3.39,
+        "CU": 4.05,
+        "TU": 3.94,
+        "n": 701,
+        "avg": 3.75
+      },
+      "avg": 3.605
+    },
+    {
       "n": 864,
       "avg": 3.396,
       "CI": 3.25,
@@ -1128,7 +1158,7 @@ const COMPO = {"total": 1123, "neuro": 259, "svu": 864, "neuro_videos": 14, "neu
     body.innerHTML=rows.map((r,i)=>
       '<tr>'+
         '<td class="rank">'+(i+1)+'</td>'+
-        '<td class="l">'+r.name+'</td>'+
+        '<td class="l">'+r.name+(r.from_paper?'<sup class="src" title="from the paper’s Table 1">†</sup>':'')+'</td>'+
         '<td class="best-mark">'+r.avg.toFixed(2)+'</td>'+
         '<td class="sep">'+(r.vtr?r.vtr.avg.toFixed(2):'—')+'</td>'+
         '<td>'+(r.vpr?r.vpr.avg.toFixed(2):'—')+'</td>'+
@@ -1138,9 +1168,12 @@ const COMPO = {"total": 1123, "neuro": 259, "svu": 864, "neuro_videos": 14, "neu
     const n=rows[0].n;
     cap.innerHTML='<b>'+(split==='mvd'?'Neurosurgery':'SVU lecture')+' split</b> &mdash; '+
       n+' questions, judged by GPT-5.5 on four dimensions (1&ndash;5).';
-    note.textContent = split==='mvd'
+    const dagger = rows.some(r=>r.from_paper)
+      ? ' † transcribed from the paper’s main table; all other rows are recomputed from the released per-question scores.'
+      : '';
+    note.textContent = (split==='mvd'
       ? 'Every frontier model lands between 2.0 and 2.7 on the long neurosurgery recordings, a narrow band well short of the 5-point ceiling — these procedures sit outside what general-purpose models handle well.'
-      : 'Lecture clips are shorter and more conventional, and the field spreads out accordingly.';
+      : 'Lecture clips are shorter and more conventional, and the field spreads out accordingly.') + dagger;
   }
   document.querySelectorAll('.tabs button[data-api]').forEach(b=>{
     b.addEventListener('click',()=>{
