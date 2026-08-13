@@ -215,6 +215,8 @@ td.sep,th.sep{border-left:1px solid var(--rule-2)}
 .cat{font-family:var(--sans);font-size:.72rem;color:var(--muted);
   text-transform:uppercase;letter-spacing:.04em;padding-top:14px;font-weight:600}
 .best-mark{font-weight:700;color:var(--text)}
+td.rank{text-align:center;font-family:var(--mono);font-size:.8rem;color:var(--muted);width:2.6em}
+tbody tr:first-child td.rank{color:var(--accent-ink);font-weight:700}
 .tblnote{font-size:.82rem;color:var(--muted);line-height:1.6;max-width:56em}
 
 /* ---------------- tabs ---------------- */
@@ -545,11 +547,9 @@ footer{border-top:1px solid var(--rule);padding:26px 0 52px;text-align:center;
   <section id="api">
     <h2>Frontier API models on MedClawBench</h2>
     <p class="abstract center" style="margin-bottom:22px">
-      How today's strongest commercial models do on the same questions. Every row is
-      scored by the identical GPT-5.5 four-dimension rubric, so the numbers are
-      directly comparable. The <b>Sees</b> column matters: DeepSeek is text-only and
-      never receives the video, so its score measures how much of the benchmark is
-      answerable from prior knowledge alone.
+      How today's strongest commercial models do on the same questions, ranked by the
+      four-dimension mean. Every row is scored by the identical GPT-5.5 rubric, so the
+      numbers are directly comparable.
     </p>
 
     <div class="tabs" role="tablist" aria-label="Split">
@@ -562,7 +562,7 @@ footer{border-top:1px solid var(--rule);padding:26px 0 52px;text-align:center;
         <caption id="apiCap"></caption>
         <thead>
           <tr>
-            <th class="l">Model</th><th class="l">Sees</th><th>Avg</th>
+            <th style="text-align:center">#</th><th class="l">Model</th><th>Avg</th>
             <th class="sep">VTR</th><th>VPR</th>
             <th class="sep">CI</th><th>DO</th><th>CU</th><th>TU</th>
           </tr>
@@ -1122,25 +1122,25 @@ const COMPO = {"total": 1123, "neuro": 259, "svu": 864, "neuro_videos": 14, "neu
   const body=document.getElementById('apiBody'), cap=document.getElementById('apiCap'),
         note=document.getElementById('apiNote');
   function draw(split){
-    const rows=APIBOARD[split];
-    body.innerHTML=rows.map(r=>{
-      const blind = r.mode.indexOf('no video')===0;
-      return '<tr class="'+(r.ours?'best':'')+'">'+
-        '<td class="l">'+r.name+(r.vendor!=='—'?'<span class="chip">'+r.vendor+'</span>':'')+'</td>'+
-        '<td class="l" style="color:'+(blind?'var(--accent-ink)':'var(--muted)')+
-          ';font-size:.8rem">'+r.mode+'</td>'+
+    // our own system is reported in the main results table; this board ranks the
+    // external API models only
+    const rows=APIBOARD[split].filter(r=>!r.ours);
+    body.innerHTML=rows.map((r,i)=>
+      '<tr>'+
+        '<td class="rank">'+(i+1)+'</td>'+
+        '<td class="l">'+r.name+'</td>'+
         '<td class="best-mark">'+r.avg.toFixed(2)+'</td>'+
         '<td class="sep">'+(r.vtr?r.vtr.avg.toFixed(2):'—')+'</td>'+
         '<td>'+(r.vpr?r.vpr.avg.toFixed(2):'—')+'</td>'+
         '<td class="sep">'+r.CI.toFixed(2)+'</td><td>'+r.DO.toFixed(2)+'</td>'+
-        '<td>'+r.CU.toFixed(2)+'</td><td>'+r.TU.toFixed(2)+'</td></tr>';
-    }).join('');
+        '<td>'+r.CU.toFixed(2)+'</td><td>'+r.TU.toFixed(2)+'</td></tr>'
+    ).join('');
     const n=rows[0].n;
     cap.innerHTML='<b>'+(split==='mvd'?'Neurosurgery':'SVU lecture')+' split</b> &mdash; '+
       n+' questions, judged by GPT-5.5 on four dimensions (1&ndash;5).';
     note.textContent = split==='mvd'
-      ? 'On the long neurosurgery recordings every frontier model lands between 2.0 and 2.7, and a text-only model that never sees the video reaches 2.20 — the gap to the video-capable models is under half a point, which is what makes this split hard.'
-      : 'Lecture clips are shorter and more conventional, so the video-capable models separate more clearly from the text-only ones.';
+      ? 'Every frontier model lands between 2.0 and 2.7 on the long neurosurgery recordings, a narrow band well short of the 5-point ceiling — these procedures sit outside what general-purpose models handle well.'
+      : 'Lecture clips are shorter and more conventional, and the field spreads out accordingly.';
   }
   document.querySelectorAll('.tabs button[data-api]').forEach(b=>{
     b.addEventListener('click',()=>{
