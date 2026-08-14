@@ -33,10 +33,14 @@ judge-agreement tables are the exception and are transcribed from the paper.
 ## Data
 
 The SVU lecture videos are the held-out test split of
-[SVU-31K](https://huggingface.co/datasets/gkw0010/SVU-31K/tree/main):
+[SVU-31K](https://huggingface.co/datasets/gkw0010/SVU-31K/tree/main). Only
+`test_data.zip` (157 GB) is needed — the full repository is about 982 GB, most of
+it training archives:
 
 ```bash
-huggingface-cli download gkw0010/SVU-31K --repo-type dataset --local-dir SVU-31K
+huggingface-cli download gkw0010/SVU-31K test_data.zip \
+    --repo-type dataset --local-dir SVU-31K
+unzip SVU-31K/test_data.zip -d SVU-31K   # -> test_videos_part1/, test_videos_part2/
 ```
 
 The neurosurgery recordings are identifiable clinical footage and are not yet public.

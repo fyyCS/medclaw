@@ -303,6 +303,9 @@ ol.steps p{font-size:.93rem;color:var(--text-2);margin:3px 0 0}
 pre{margin:0;overflow-x:auto;background:var(--panel);border:1px solid var(--rule-2);
   border-radius:3px;padding:14px 16px}
 code{font-family:var(--mono);font-size:.81rem;line-height:1.62}
+/* inline code inside running text, not a pre block */
+p > code{background:var(--panel);border:1px solid var(--rule-2);border-radius:2px;
+  padding:0 4px;font-size:.86em}
 pre .c{color:var(--muted)}
 pre .k{color:var(--teal-ink)}
 
@@ -685,9 +688,13 @@ footer{border-top:1px solid var(--rule);padding:26px 0 52px;text-align:center;
     <h3 style="margin-bottom:6px">SVU lecture split</h3>
     <p style="font-size:.93rem;color:var(--text-2);margin-bottom:12px">
       The held-out test split of SVU-31K &mdash; 864 questions over 141 lecture videos, publicly
-      available. Each clip is stored under its SVU-31K id.
+      available. Each clip is stored under its SVU-31K id. Only <code>test_data.zip</code>
+      (157&nbsp;GB, unpacking to about 148&nbsp;GB) is needed; the training archives are not.
     </p>
-    <pre style="margin-bottom:26px"><code>huggingface-cli download gkw0010/SVU-31K <span class="k">--repo-type</span> dataset <span class="k">--local-dir</span> SVU-31K</code></pre>
+    <pre style="margin-bottom:26px"><code><span class="c"># only the test split is needed — the full repo is ~982 GB</span>
+huggingface-cli download gkw0010/SVU-31K test_data.zip \
+    <span class="k">--repo-type</span> dataset <span class="k">--local-dir</span> SVU-31K
+unzip SVU-31K/test_data.zip <span class="k">-d</span> SVU-31K   <span class="c"># -> test_videos_part1/, test_videos_part2/</span></code></pre>
 
     <h3 class="sub" style="margin-bottom:6px">Neurosurgery split</h3>
     <p style="font-size:.93rem;color:var(--text-2);margin-bottom:26px">
