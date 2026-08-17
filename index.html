@@ -312,6 +312,9 @@ pre .k{color:var(--teal-ink)}
 .bibtex{background:var(--panel);border:1px solid var(--rule-2);border-radius:3px;
   padding:16px 18px;overflow-x:auto}
 .bibtex code{font-size:.8rem;color:var(--text-2)}
+/* the arXiv entry has a very long author line; let the block scroll rather than
+   wrap, so the BibTeX stays copy-pasteable exactly as arXiv emits it */
+.bibtex pre{white-space:pre;overflow-x:auto}
 
 footer{border-top:1px solid var(--rule);padding:26px 0 52px;text-align:center;
   font-size:.84rem;color:var(--muted);line-height:1.7}
@@ -354,9 +357,13 @@ footer{border-top:1px solid var(--rule);padding:26px 0 52px;text-align:center;
     </p>
 
     <nav class="buttons">
-      <a class="btn disabled" href="#" aria-disabled="true">
+      <a class="btn" href="https://arxiv.org/abs/2608.14015">
         <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" aria-hidden="true"><path d="M3.5 1.5h6l3 3v10h-9z"/><path d="M9.5 1.5v3h3"/></svg>
         Paper
+      </a>
+      <a class="btn ghost" href="https://arxiv.org/pdf/2608.14015">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" aria-hidden="true"><path d="M8 1.5v9M4.5 7.5 8 11l3.5-3.5M2.5 13.5h11"/></svg>
+        PDF
       </a>
       <a class="btn ghost" href="https://github.com/fyyCS/medclaw-agent"
          title="Coming soon — final cleanup in progress">
@@ -728,14 +735,14 @@ python surg_env/score_final.py --split svu</code></pre>
   <!-- ===================== bibtex ===================== -->
   <section id="bibtex">
     <h2>BibTeX</h2>
-    <div class="bibtex"><code><pre style="background:none;border:0;padding:0">@article{fan2026medclaw,
-  title   = {MedClaw: Heuristic Agent Harness for Long-Horizon
-             Surgical Video Reasoning},
-  author  = {Fan, Yingying and Du, Penghui and Zhu, Leyan and He, Runze
-             and Wu, Zimeng and Zhang, Yuxuan and Chen, Liang
-             and Xie, Jiahao and Wang, Jiangtang and Shao, Shuai
-             and Yang, Anchao and Bai, Yutong and Wang, Yan},
-  year    = {2026}
+    <div class="bibtex"><code><pre style="background:none;border:0;padding:0">@misc{fan2026medclawheuristicagentharness,
+      title={MedClaw: Heuristic Agent Harness for Long-Horizon Surgical Video Reasoning},
+      author={Yingying Fan and Penghui Du and Leyan Zhu and Runze He and Zimeng Wu and Yuxuan Zhang and Liang Chen and Jiahao Xie and Jiangtang Wang and Shuai Shao and Anchao Yang and Yutong Bai and Yan Wang},
+      year={2026},
+      eprint={2608.14015},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2608.14015},
 }</pre></code></div>
   </section>
 

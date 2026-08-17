@@ -1,7 +1,8 @@
 # MedClaw — project page
 
 Source for **https://fyycs.github.io/medclaw/**, the project page for *MedClaw:
-Heuristic Agent Harness for Long-Horizon Surgical Video Reasoning*.
+Heuristic Agent Harness for Long-Horizon Surgical Video Reasoning*
+([arXiv:2608.14015](https://arxiv.org/abs/2608.14015)).
 
 MedClaw answers open-ended questions about long, untrimmed surgical videos by pairing
 a text-only orchestrator (which never sees the pixels) with frozen vision–language
@@ -50,14 +51,14 @@ answers ship with the benchmark file in the research repository.
 ## Citation
 
 ```bibtex
-@article{fan2026medclaw,
-  title   = {MedClaw: Heuristic Agent Harness for Long-Horizon
-             Surgical Video Reasoning},
-  author  = {Fan, Yingying and Du, Penghui and Zhu, Leyan and He, Runze
-             and Wu, Zimeng and Zhang, Yuxuan and Chen, Liang
-             and Xie, Jiahao and Wang, Jiangtang and Shao, Shuai
-             and Yang, Anchao and Bai, Yutong and Wang, Yan},
-  year    = {2026}
+@misc{fan2026medclawheuristicagentharness,
+      title={MedClaw: Heuristic Agent Harness for Long-Horizon Surgical Video Reasoning},
+      author={Yingying Fan and Penghui Du and Leyan Zhu and Runze He and Zimeng Wu and Yuxuan Zhang and Liang Chen and Jiahao Xie and Jiangtang Wang and Shuai Shao and Anchao Yang and Yutong Bai and Yan Wang},
+      year={2026},
+      eprint={2608.14015},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2608.14015},
 }
 ```
 
